@@ -1,12 +1,12 @@
-function Employee(employeeID, fullName, department, level, imageURL, salary) {
+function Employee(employeeID, fullName, department, level, imageURL,salary) {
 this.employeeID = employeeID;
 this.fullName = fullName;
 this.department = department;
 this.level = level;
 this.imageURL = imageURL;
-this.salary = salarycalc(level);
+this.salary = salaryCalc(level);
 }
-function salarycalc(level) {
+function salaryCalc(level) {
 switch (level) {
     case "Junior":
       return Math.floor(Math.random() * 500) + 500;
@@ -23,64 +23,110 @@ let person01 = new Employee(
 "Gazi Sameer",
 "Advertisement",
 "Senior",
-"https://randomuser.me/api/portraits/men/11.jpg"
+
 );
 let person02 = new Employee(
 1001,
 "Lana Ali",
 "Finance",
 "Senior",
-"https://randomuser.me/api/portraits/women/11.jpg"
 );
 let person03 = new Employee(
 1002,
 "Tamara Ayoub",
 "Marketing",
 "Senior",
-"https://randomuser.me/api/portraits/women/13.jpg"
+
 );
 let person04 = new Employee(
 1003,
 "Safi Waleed",
 "Advertisement",
 "Mid-Senior",
-"https://randomuser.me/api/portraits/men/12.jpg"
+
 );
 let person05 = new Employee(
 1004,
 "Omar Zaid",
 "Development",
 "Senior",
-"https://randomuser.me/api/portraits/men/15.jpg"
+
 );
 let person06 = new Employee(
 1005,
 "Rana Saleh",
 "Development",
 "Junior",
-"https://randomuser.me/api/portraits/women/20.jpg"
+
 );
 let person07 = new Employee(
 1006,
 "Hadi Ahmed",
 "Finance",
 "Mid-Senior",
-"https://randomuser.me/api/portraits/men/21.jpg"
+""
 );
-// let okTest = Object.keys(person01);
-// console.log(okTest);
+
+
+const table = document.createElement("table");
+const thead = document.createElement("thead");
+const tbody = document.createElement("tbody");
+
+let employees = [
+	person01,
+	person02,
+	person03,
+	person04,
+	person05,
+	person06,
+	person07,
+  
+];
+let static = ["Employee ID", "Full Name", "Department", "Level", "Salary",];
+
+function theadGenerator() {
+	const row = document.createElement("tr");
+
+	for (let x = 0; x < 5; x++) {
+		const column = document.createElement("th");
+		const Content = document.createTextNode(
+			static [x]
+		);
+		column.appendChild(Content);
+		row.appendChild(column);
+	}
+
+	thead.appendChild(row);
+	table.appendChild(thead);
+}
+
+function tbodyGenerator() {
+  // create a rows 
+	for (let x = 0; x < 7; x++) {
+		const row = document.createElement("tr");
+// create a column inside the rows
+		for (let j = 0; j < 6; j++) {
+			const column = document.createElement("td");
+			if (j == 4) {
+				continue;
+			}
+			let person = Object.values(employees[x]);
+			const Content = document.createTextNode(person[j]);
+
+			column.appendChild(Content);
+			row.appendChild(column);
+		}
+		tbody.appendChild(row);
+	}
+
+	table.appendChild(tbody);
+}
 
 function render() {
-	let employees = [
-	  person01,
-		person02,
-		person03,
-		person04,
-		person05,
-		person06,
-		person07,
-	];
-	for (let i = 0; i < 7; i++) {
+	theadGenerator();
+	tbodyGenerator();
+	document.getElementById("main").appendChild(table);
+	for (let i = 0; i <= 6; i++) {
 		console.log(
 			"Employee Name: " +
 				employees[i].fullName +
